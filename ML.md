@@ -67,3 +67,7 @@
 - 현재 서버에 문제가 있는지 탐지 <- 선형회귀
 - 메트릭에 이슈가 있다면 알림 및 Auto Scaling 구성 <- 로지스틱 회귀
 - WAF 모니터링 과정에서 문제가 있다고 판단되면 COUNT -> BLOCK 상태로 변환 <- KNN
+
+## Conclusion
+
+- SageMaker 공부해보자
