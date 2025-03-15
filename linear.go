@@ -3,6 +3,7 @@ package linear
 import (
 	"fmt"
 	"strconv"
+	"strings"
 
 	"github.com/zkfmapf123/ml/tools"
 )
@@ -31,17 +32,25 @@ func linearRegression(data []dataPointParams) (float64, float64) {
 		sumX2 = point.x * point.x
 	}
 
-	a := (n*sumXY - sumY*sumY) / (n*sumX2 - sumX*sumX)
+	a := (n*sumXY - sumX*sumY) / (n*sumX2 - sumX*sumX)
 	b := (sumY - a*sumX) / n
 	return a, b
 }
 
-func LinearCalc(x float64) {
+type ModelResponseParmas struct {
+	x          float64
+	predictNum string
+}
 
-	rows := tools.LoadCSV("./public/data_1.csv")
+func LinearCalc(filename string, x float64) ModelResponseParmas {
+
+	rows := tools.LoadCSV(fmt.Sprintf("./public/%s", filename))
 
 	var data []dataPointParams
-	for _, row := range rows {
+	for i, row := range rows {
+		if i == 0 {
+			continue
+		}
 
 		r1, r2 := row[0], row[1]
 
@@ -58,5 +67,9 @@ func LinearCalc(x float64) {
 
 	// 기대값에 따른 예측값 생성
 	predictY := a*x + b
-	fmt.Printf("Predict Y for X=%.2f Y=%2.f\n", x, predictY)
+	// return fmt.Sprintf("Predict Y for X=%.2f Y=%2.f\n", x, predictY)
+	return ModelResponseParmas{
+		x:          x,
+		predictNum: strings.Trim(fmt.Sprintf("%2.f", predictY), " "),
+	}
 }
