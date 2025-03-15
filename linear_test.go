@@ -1,4 +1,4 @@
-package linear
+package main
 
 import (
 	"testing"
